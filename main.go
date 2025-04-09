@@ -5,9 +5,9 @@ import (
 	"crm-backend/customer"
 	"encoding/json"
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"net/http"
-	"strconv"
 )
 
 // This function will return a list of customers
@@ -48,13 +48,13 @@ func deleteCustomer(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("ID", id)
 
-	customerID, err := strconv.ParseUint(id, 10, 16)
+	customerID, err := uuid.Parse(id)
 	if err != nil {
 		http.Error(w, "Invalid customer ID", http.StatusBadRequest)
 		return
 	}
 
-	customer.DeleteCustomer(uint16(customerID))
+	customer.DeleteCustomer(customerID)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusNoContent)
@@ -70,12 +70,12 @@ func getCustomer(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("ID", id)
 
 	// Get customer by id
-	customerID, err := strconv.ParseUint(id, 10, 16)
+	customerID, err := uuid.Parse(id)
 	if err != nil {
 		http.Error(w, "Invalid cust ID", http.StatusBadRequest)
 		return
 	}
-	cust := customer.GetCustomerByID(uint16(customerID))
+	cust := customer.GetCustomerByID(customerID)
 	if cust == nil {
 		http.Error(w, "Customer not found", http.StatusNotFound)
 		return
@@ -93,7 +93,7 @@ func updateCustomer(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 	}
 
-	customerID, err := strconv.ParseUint(id, 10, 16)
+	customerID, err := uuid.Parse(id)
 	if err != nil {
 		http.Error(w, "Invalid customer ID", http.StatusBadRequest)
 		return
@@ -106,7 +106,7 @@ func updateCustomer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	customer.UpdateCustomer(uint16(customerID), updatedCustomer)
+	customer.UpdateCustomer(customerID, updatedCustomer)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -117,9 +117,14 @@ func updateCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func showIndexPage(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "static/index.html")
+}
+
 func main() {
 	router := mux.NewRouter()
 	// Initialize the HTTP server
+	router.HandleFunc("/", showIndexPage).Methods("GET")
 	router.HandleFunc("/customers", getCustomers).Methods("GET")
 	router.HandleFunc("/customers", addCustomer).Methods("POST")
 	router.HandleFunc("/customers/{id}", getCustomer).Methods("GET")

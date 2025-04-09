@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Backend</title>
+</head>
+<body>
+<h1>CRM Backend</h1>
+
+<h2>Tech Stack</h2>
+<ul>
+    <li>Go-Lang</li>
+</ul>
+
+<h2>Clone the project</h2>
+<pre><code>git clone https://github.com/swapab/crm-backend.git
+cd crm-backend
+</code></pre>
+
+<h2>Build</h2>
+<pre><code>go build
+</code></pre>
+
+<h2>Run test</h2>
+<pre><code>go run test
+</code></pre>
+
+<h2>Start Server</h2>
+<pre><code>go run main.go
+</code></pre>
+
+<h2>API Endpoints</h2>
+
+<h3>1. Create a new customer</h3>
+<ul>
+    <li><strong>URL</strong>: <code>/customers</code></li>
+    <li><strong>Method</strong>: <code>POST</code></li>
+    <li><strong>Request Body</strong>:
+        <ul>
+            <li><code>name</code>: string (required)</li>
+            <li><code>email</code>: string (required)</li>
+            <li><code>phone</code>: string (required)</li>
+            <li><code>role</code>: string (required)</li>
+            <li><code>Connected</code>: boolean (optional)</li>
+        </ul>
+    </li>
+    <li><strong>Response</strong>:
+        <ul>
+            <li><code>201 Created</code>: Customer created successfully</li>
+            <li><code>400 Bad Request</code>: Invalid input data</li>
+            <li><code>500 Internal Server Error</code>: Server error</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>2. Get all customers</h3>
+<ul>
+    <li><strong>URL</strong>: <code>/customers</code></li>
+    <li><strong>Method</strong>: <code>GET</code></li>
+    <li><strong>Response</strong>:
+        <ul>
+            <li><code>200 OK</code>: List of customers</li>
+            <li><code>500 Internal Server Error</code>: Server error</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>3. Get a customer by ID</h3>
+<ul>
+    <li><strong>URL</strong>: <code>/customers/{id}</code></li>
+    <li><strong>Method</strong>: <code>GET</code></li>
+    <li><strong>Response</strong>:
+        <ul>
+            <li><code>200 OK</code>: Customer details</li>
+            <li><code>404 Not Found</code>: Customer not found</li>
+            <li><code>500 Internal Server Error</code>: Server error</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>4. Update a customer by ID</h3>
+<ul>
+    <li><strong>URL</strong>: <code>/customers/{id}</code></li>
+    <li><strong>Method</strong>: <code>PUT</code></li>
+    <li><strong>Request Body</strong>:
+        <ul>
+            <li><code>name</code>: string (optional)</li>
+            <li><code>email</code>: string (optional)</li>
+            <li><code>phone</code>: string (optional)</li>
+            <li><code>role</code>: string (optional)</li>
+            <li><code>Connected</code>: boolean (optional)</li>
+        </ul>
+    </li>
+    <li><strong>Response</strong>:
+        <ul>
+            <li><code>200 OK</code>: Customer updated successfully</li>
+            <li><code>400 Bad Request</code>: Invalid input data</li>
+            <li><code>404 Not Found</code>: Customer not found</li>
+            <li><code>500 Internal Server Error</code>: Server error</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>5. Delete a customer by ID</h3>
+<ul>
+    <li><strong>URL</strong>: <code>/customers/{id}</code></li>
+    <li><strong>Method</strong>: <code>DELETE</code></li>
+    <li><strong>Response</strong>:
+        <ul>
+            <li><code>204 No Content</code>: Customer deleted successfully</li>
+            <li><code>404 Not Found</code>: Customer not found</li>
+            <li><code>500 Internal Server Error</code>: Server error</li>
+        </ul>
+    </li>
+</ul>
+</body>
+</html>

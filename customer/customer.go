@@ -1,7 +1,9 @@
 package customer
 
+import "github.com/google/uuid"
+
 type Customer struct {
-	ID        uint16
+	ID        uuid.UUID
 	Name      string
 	Role      string
 	Email     string
@@ -15,12 +17,11 @@ func GetCustomers() []Customer {
 
 func AddCustomer(c Customer) {
 	// Assign a new ID to the customer
-	c.ID = customerIDCounter
+	c.ID = uuid.New()
 	customers = append(customers, c)
-	customerIDCounter++
 }
 
-func DeleteCustomer(id uint16) {
+func DeleteCustomer(id uuid.UUID) {
 	for i, customer := range customers {
 		if customer.ID == id {
 			customers = append(customers[:i], customers[i+1:]...)
@@ -29,7 +30,7 @@ func DeleteCustomer(id uint16) {
 	}
 }
 
-func GetCustomerByID(id uint16) *Customer {
+func GetCustomerByID(id uuid.UUID) *Customer {
 	for _, customer := range customers {
 		if customer.ID == id {
 			return &customer
@@ -38,7 +39,7 @@ func GetCustomerByID(id uint16) *Customer {
 	return nil
 }
 
-func UpdateCustomer(id uint16, updatedCustomer Customer) bool {
+func UpdateCustomer(id uuid.UUID, updatedCustomer Customer) bool {
 	for i, customer := range customers {
 		if customer.ID == id {
 			customers[i] = updatedCustomer

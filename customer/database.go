@@ -1,7 +1,9 @@
 package customer
 
+import "github.com/google/uuid"
+
 var customer1 = Customer{
-	ID:        1,
+	ID:        uuid.New(),
 	Name:      "John Doe",
 	Role:      "Customer",
 	Email:     "johndoe@example.com",
@@ -9,7 +11,7 @@ var customer1 = Customer{
 	Contacted: true,
 }
 var customer2 = Customer{
-	ID:        2,
+	ID:        uuid.New(),
 	Name:      "Jane Smith",
 	Role:      "Admin",
 	Email:     "janesmith@admin.com",
@@ -17,16 +19,13 @@ var customer2 = Customer{
 	Contacted: false,
 }
 var customer3 = Customer{
-	ID:        3,
+	ID:        uuid.New(),
 	Name:      "Alice Johnson",
 	Role:      "User",
 	Email:     "alice@user.com",
 	Phone:     5550197,
 	Contacted: true,
 }
-
-// counter for customer IDs
-var customerIDCounter uint16 = 4
 
 var customers = []Customer{
 	customer1,
